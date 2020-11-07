@@ -8,6 +8,7 @@ use KitLoong\MigrationsGenerator\Generators\Decorator;
 use KitLoong\MigrationsGenerator\Generators\SchemaGenerator;
 use KitLoong\MigrationsGenerator\Transformers\IncrementsTransformer;
 use KitLoong\MigrationsGenerator\Transformers\MorphTransformer;
+use KitLoong\MigrationsGenerator\Transformers\TimestampsPrecisionTransformer;
 use KitLoong\MigrationsGenerator\Transformers\UnsignedBigIntegerTransformer;
 use Way\Generators\Commands\GeneratorCommand;
 use Way\Generators\Generator;
@@ -276,6 +277,7 @@ class MigrateGenerateCommand extends GeneratorCommand
 
             $this->fields = (new IncrementsTransformer())->transformFields($this->fields);
             $this->fields = (new UnsignedBigIntegerTransformer())->transformFields($this->fields);
+            $this->fields = (new TimestampsPrecisionTransformer())->transformFields($this->fields);
             if ($this->option('guessMorphs')) {
                 $this->fields = (new MorphTransformer())->transformFields($this->fields);
             }

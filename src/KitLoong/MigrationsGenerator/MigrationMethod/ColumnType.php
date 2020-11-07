@@ -44,8 +44,9 @@ final class ColumnType
     const SOFT_DELETES = 'softDeletes';
     const TIME_TZ = 'timeTz';
     const TIMESTAMP = 'timestamp';
-    const TIMESTAMPS = 'timestamps';
     const TIMESTAMP_TZ = 'timestampTz';
+    const TIMESTAMPS = 'timestamps';
+    const TIMESTAMPS_TZ = 'timestampsTz';
     const TINY_INCREMENTS = 'tinyIncrements';
     const TINY_INTEGER = 'tinyInteger';
     const UNSIGNED_BIG_INTEGER = 'unsignedBigInteger';
