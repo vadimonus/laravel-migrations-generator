@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use KitLoong\MigrationsGenerator\Generators\Decorator;
 use KitLoong\MigrationsGenerator\Generators\SchemaGenerator;
+use KitLoong\MigrationsGenerator\Transformers\IncrementsTransformer;
 use KitLoong\MigrationsGenerator\Transformers\MorphTransformer;
 use Way\Generators\Commands\GeneratorCommand;
 use Way\Generators\Generator;
@@ -272,6 +273,7 @@ class MigrateGenerateCommand extends GeneratorCommand
             $fields = $this->schemaGenerator->getFields($tableName, $indexes['single']);
             $this->fields = array_merge($fields, $indexes['multi']->toArray());
 
+            $this->fields = (new IncrementsTransformer())->transformFields($this->fields);
             if ($this->option('guessMorphs')) {
                 $this->fields = (new MorphTransformer())->transformFields($this->fields);
             }
