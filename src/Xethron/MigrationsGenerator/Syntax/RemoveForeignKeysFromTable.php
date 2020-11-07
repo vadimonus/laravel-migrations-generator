@@ -16,8 +16,10 @@ class RemoveForeignKeysFromTable extends Table
      */
     protected function getItem(array $foreignKey): string
     {
-        $name = empty($foreignKey['name']) ? $this->createIndexName($foreignKey['fields']) : $foreignKey['name'];
-        return sprintf("\$table->dropForeign('%s');", $name);
+        $name = empty($foreignKey['name'])
+            ? $this->createIndexName($foreignKey['fields'])
+            : "'" . $foreignKey['name'] . "'";
+        return sprintf("\$table->dropForeign(%s);", $name);
     }
 
     /**
@@ -28,11 +30,6 @@ class RemoveForeignKeysFromTable extends Table
      */
     protected function createIndexName(array $columns): string
     {
-        $setting = app(MigrationsGeneratorSetting::class);
-        $tableConcatPrefix = $setting->getConnection()->getTablePrefix().$this->table;
-
-        $index = strtolower($tableConcatPrefix.'_'.implode('_', $columns).'_foreign');
-
-        return str_replace(['-', '.'], '_', $index);
+        return "['" . implode("', '", $columns) . "']";
     }
 }
