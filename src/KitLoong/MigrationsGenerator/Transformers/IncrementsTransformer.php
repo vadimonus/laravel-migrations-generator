@@ -9,10 +9,10 @@ class IncrementsTransformer
 {
     protected $typesMap = [
         ColumnType::BIG_INTEGER => ColumnType::BIG_INCREMENTS,
-        ColumnType::INTEGER => ColumnType::INCREMENTS,
-        ColumnType::MEDIUM_INTEGER => ColumnType::MEDIUM_INCREMENTS,
-        ColumnType::SMALL_INTEGER => ColumnType::SMALL_INCREMENTS,
-        ColumnType::TINY_INTEGER => ColumnType::TINY_INCREMENTS,
+        ColumnType::INTEGER => ColumnType::BIG_INCREMENTS,
+        ColumnType::MEDIUM_INTEGER => ColumnType::BIG_INCREMENTS,
+        ColumnType::SMALL_INTEGER => ColumnType::BIG_INCREMENTS,
+        ColumnType::TINY_INTEGER => ColumnType::BIG_INCREMENTS,
     ];
 
     public function transformFields(array $fieldDefinitions): array

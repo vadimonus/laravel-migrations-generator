@@ -8,6 +8,7 @@ use KitLoong\MigrationsGenerator\Generators\Decorator;
 use KitLoong\MigrationsGenerator\Generators\SchemaGenerator;
 use KitLoong\MigrationsGenerator\Transformers\IncrementsTransformer;
 use KitLoong\MigrationsGenerator\Transformers\MorphTransformer;
+use KitLoong\MigrationsGenerator\Transformers\UnsignedBigIntegerTransformer;
 use Way\Generators\Commands\GeneratorCommand;
 use Way\Generators\Generator;
 use Xethron\MigrationsGenerator\Syntax\AddForeignKeysToTable;
@@ -274,6 +275,7 @@ class MigrateGenerateCommand extends GeneratorCommand
             $this->fields = array_merge($fields, $indexes['multi']->toArray());
 
             $this->fields = (new IncrementsTransformer())->transformFields($this->fields);
+            $this->fields = (new UnsignedBigIntegerTransformer())->transformFields($this->fields);
             if ($this->option('guessMorphs')) {
                 $this->fields = (new MorphTransformer())->transformFields($this->fields);
             }
