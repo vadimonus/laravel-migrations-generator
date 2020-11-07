@@ -75,6 +75,15 @@ class MorphTransformer
                     ->where('args', [])
                     ->keys()
                     ->first();
+                if (!$indexKey) {
+                    $indexKey = $fieldDefCollection
+                        ->where('field.0', $field . '_id')
+                        ->where('field.1', $field . '_type')
+                        ->where('type', IndexType::INDEX)
+                        ->where('args', [])
+                        ->keys()
+                        ->first();
+                }
                 if ($idFieldKey !== null && $typeFieldKey !== null && $indexKey !== null) {
                     return [
                         'name' => $field,
@@ -113,6 +122,15 @@ class MorphTransformer
                     ->where('args', [])
                     ->keys()
                     ->first();
+                if (!$indexKey) {
+                    $indexKey = $fieldDefCollection
+                        ->where('field.0', $field . '_id')
+                        ->where('field.1', $field . '_type')
+                        ->where('type', IndexType::INDEX)
+                        ->where('args', [])
+                        ->keys()
+                        ->first();
+                }
                 if ($idFieldKey !== null && $typeFieldKey !== null && $indexKey !== null) {
                     return [
                         'name' => $field,
