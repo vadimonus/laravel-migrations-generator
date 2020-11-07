@@ -10,6 +10,13 @@ use KitLoong\MigrationsGenerator\Types\DBALTypes;
 
 class MorphTransformer
 {
+    protected $intTypes = [
+        ColumnType::INTEGER,
+        ColumnType::BIG_INTEGER,
+        ColumnType::UNSIGNED_INTEGER,
+        ColumnType::UNSIGNED_BIG_INTEGER,
+    ];
+
     public function transformFields(array $fieldDefinitions): array
     {
         $fieldDefCollection = new Collection($fieldDefinitions);
@@ -49,7 +56,7 @@ class MorphTransformer
             ->map(function ($field) use ($fieldDefCollection) {
                 $idFieldKey = $fieldDefCollection
                     ->where('field', $field . '_id')
-                    ->whereIn('type', [ColumnType::INTEGER, ColumnType::BIG_INTEGER])
+                    ->whereIn('type', $this->intTypes)
                     ->where('args', [])
                     ->where('decorators', [])
                     ->keys()
@@ -87,7 +94,7 @@ class MorphTransformer
             ->map(function ($field) use ($fieldDefCollection) {
                 $idFieldKey = $fieldDefCollection
                     ->where('field', $field . '_id')
-                    ->whereIn('type', [ColumnType::INTEGER, ColumnType::BIG_INTEGER])
+                    ->whereIn('type', $this->intTypes)
                     ->where('args', [])
                     ->where('decorators', ['nullable'])
                     ->keys()
